@@ -26,7 +26,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 120px 24px 24px;
+      padding: 160px 24px 24px;
     }
 
     /* ===== BARRA SUPERIORE ===== */
@@ -39,7 +39,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 20px;
       padding: 10px 20px;
       background: rgba(245, 235, 208, 0.75); /* crema, 0.75 = 25% di trasparenza */
       backdrop-filter: blur(4px);
@@ -48,8 +48,8 @@
     }
 
     .barra img {
-      height: 68px;
-      width: 68px;
+      height: 120px;  /* ◄ dimensione del logo: cambia qui */
+      width: 120px;   /* ◄ tienila uguale all'altezza */
       display: block;
     }
 
@@ -63,9 +63,10 @@
     }
 
     @media (max-width: 480px) {
-      .barra { gap: 10px; padding: 10px 12px; }
-      .barra img { height: 44px; width: 44px; }
-      .barra h1 { font-size: 1.7rem; }
+      body { padding-top: 120px; }
+      .barra { gap: 10px; padding: 8px 12px; }
+      .barra img { height: 72px; width: 72px; }
+      .barra h1 { font-size: 1.6rem; }
     }
 
     .riquadro {
