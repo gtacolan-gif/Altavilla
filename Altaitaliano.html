@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hotel Altavilla · Informazioni</title>
+  <style>
+    /* ▼ FONT MILESTONE: metti il file del font nella stessa cartella e controlla il nome qui sotto ▼ */
+    @font-face {
+      font-family: "Milestone One";
+      src: local("Milestone One"), local("MilestoneOne"),
+           url("MilestoneOne.woff2") format("woff2"),
+           url("MilestoneOne.ttf") format("truetype"),
+           url("MilestoneOne.otf") format("opentype");
+      font-display: swap;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      /* ▼▼▼ CAMBIA QUI il nome/percorso della tua immagine di sfondo ▼▼▼ */
+      background: #5b6770 url("Sfondo.png") center / cover no-repeat fixed;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #2b2118;
+      min-height: 100vh;
+      padding: 112px 20px 40px;
+    }
+
+    /* ===== BARRA SUPERIORE ===== */
+    .barra {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 5px 20px;
+      background: rgba(245, 235, 208, 0.75); /* crema, 0.75 = 25% di trasparenza */
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    .barra img {
+      height: 78px;
+      width: 68px;
+      display: block;
+    }
+
+    .barra h1 {
+      font-family: "Milestone One", "Milestone", Georgia, "Times New Roman", serif;
+      font-size: 2.8rem;
+      font-weight: normal;
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+      color: #582612; /* marrone del logo */
+    }
+
+    /* ===== CONTENUTO ===== */
+    main {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* Link Google (recensioni) */
+    .recensione {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto 18px;
+      padding: 10px 24px;
+      background: rgba(245, 235, 208, 0.75);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 999px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+      color: #582612;
+      text-decoration: none;
+      font-size: 1.25rem;
+      transition: background 0.2s;
+    }
+
+    .recensione:hover,
+    .recensione:focus-visible {
+      background: rgba(255, 250, 235, 0.92);
+      outline: 2px solid #582612;
+      outline-offset: 2px;
+    }
+
+    .recensione svg { flex: 0 0 auto; width: 30px; height: 30px; display: block; }
+
+    /* Riquadro centrale */
+    .riquadro {
+      background: rgba(245, 235, 208, 0.75); /* crema, 0.75 = 25% di trasparenza */
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 14px;
+      padding: 10px 28px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    /* ===== ELENCO A FISARMONICA ===== */
+    .voce { border-bottom: 1px solid rgba(88, 38, 18, 0.22); }
+    .voce:last-child { border-bottom: none; }
+
+    .voce-titolo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      padding: 18px 8px;
+      background: none;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1.6rem;
+      text-align: left;
+      color: #582612;
+    }
+
+    .voce-titolo:hover { background: rgba(255, 255, 255, 0.3); }
+    .voce-titolo:focus-visible { outline: 2px solid #582612; outline-offset: -2px; }
+
+    /* Freccia: punta verso la scritta (destra) e ruota in senso orario fino a puntare in basso */
+    .freccia {
+      flex: 0 0 auto;
+      width: 26px;
+      height: 26px;
+      transition: transform 0.35s ease;
+    }
+
+    .voce-titolo[aria-expanded="true"] .freccia { transform: rotate(90deg); }
+
+    /* Pannello che si apre */
+    .pannello {
+      display: grid;
+      grid-template-rows: 0fr;
+      visibility: hidden;
+      transition: grid-template-rows 0.35s ease, visibility 0s linear 0.35s;
+    }
+
+    .pannello.aperto {
+      grid-template-rows: 1fr;
+      visibility: visible;
+      transition: grid-template-rows 0.35s ease, visibility 0s;
+    }
+
+    .pannello-interno { overflow: hidden; }
+
+    .contenuto { padding: 4px 8px 22px 50px; }
+
+    .contenuto p { font-size: 1.1rem; line-height: 1.65; margin-bottom: 12px; }
+    .contenuto p:last-child { margin-bottom: 0; }
+
+    .contenuto ul { margin: 0 0 12px 20px; font-size: 1.1rem; line-height: 1.65; }
+    .contenuto li { margin-bottom: 6px; }
+
+    .credenziali {
+      background: rgba(255, 255, 255, 0.55);
+      border-left: 4px solid #582612;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin: 4px 0 14px;
+      font-size: 1.15rem;
+      line-height: 1.8;
+    }
+
+    /* ===== SPAZI PER LE IMMAGINI ===== */
+    .foto-griglia {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .foto-griglia.una { grid-template-columns: 1fr; }
+    .foto-griglia.due { grid-template-columns: 1fr 1fr; }
+
+    .foto {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.45);
+      border: 2px dashed rgba(88, 38, 18, 0.35);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(88, 38, 18, 0.7);
+      padding: 8px;
+    }
+
+    .foto::before { content: "Inserisci qui l'immagine"; }
+
+    .una .foto { aspect-ratio: 16 / 9; }
+    .due .foto { aspect-ratio: 4 / 3; }
+
+    .foto img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ===== TELEFONO ===== */
+    @media (max-width: 480px) {
+      body { padding: 100px 12px 28px; }
+      .barra { gap: 10px; padding: 5px 12px; }
+      .barra img { height: 54px; width: 44px; }
+      .barra h1 { font-size: 1.7rem; }
+      .recensione { font-size: 1.05rem; padding: 10px 18px; gap: 10px; }
+      .riquadro { padding: 6px 14px; }
+      .voce-titolo { font-size: 1.35rem; padding: 16px 4px; gap: 12px; }
+      .contenuto { padding: 2px 4px 20px 4px; }
+      .foto-griglia.due { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="barra">
+    <img src="Altavilla.png" alt="Logo Hotel Altavilla Roma">
+    <h1>Hotel Altavilla</h1>
+  </header>
+
+  <main>
+
+    <!-- ▼ LINK RECENSIONI GOOGLE: sostituisci LINK-GOOGLE con il tuo indirizzo ▼ -->
+    <a class="recensione" href="LINK-GOOGLE" target="_blank" rel="noopener">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      <span>La tua opinione conta per noi</span>
+    </a>
+
+    <div class="riquadro">
+
+      <!-- ===== WI-FI ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-wifi">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Wi-Fi
+        </button>
+        <div class="pannello" id="p-wifi">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>Per collegarvi alla rete Wi-Fi dell'hotel, selezionate la rete e inserite le seguenti credenziali:</p>
+              <div class="credenziali">
+                <strong>Username:</strong> Altavilla<br>
+                <strong>Password:</strong> 91963819
+              </div>
+              <p>Per qualsiasi difficoltà di connessione, il personale della reception sarà lieto di aiutarvi.</p>
+
+              <!-- ▼ 1 immagine: sostituisci il nome del file ▼ -->
+              <div class="foto-griglia una">
+                <div class="foto"><img src="immagini/wifi-1.jpg" alt="Wi-Fi" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== INFORMAZIONI ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-informazioni">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Informazioni
+        </button>
+        <div class="pannello" id="p-informazioni">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>La nostra struttura è aperta 24 ore su 24, 7 giorni su 7, per accogliervi in qualsiasi momento della giornata.</p>
+              <p>Ogni giorno provvediamo al cambio di lenzuola, fodere e asciugamani in tutte le camere e al rifornimento di saponi e carta igienica, per garantirvi sempre un soggiorno confortevole.</p>
+              <p>Vi ricordiamo che, ogni volta che uscite dalla struttura, è obbligatorio lasciare le vostre chiavi in reception.</p>
+
+              <!-- ▼ 2 immagini: sostituisci i nomi dei file ▼ -->
+              <div class="foto-griglia due">
+                <div class="foto"><img src="immagini/informazioni-1.jpg" alt="Informazioni" onerror="this.remove()"></div>
+                <div class="foto"><img src="immagini/informazioni-2.jpg" alt="Informazioni" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== COLAZIONE ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-colazione">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Colazione
+        </button>
+        <div class="pannello" id="p-colazione">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>Offriamo una ricca colazione, servita dalle 8:00 alle 10:00.</p>
+              <p>Se non è inclusa nella vostra tariffa, il costo è di 7,50 € a persona. Per il pagamento vi invitiamo a rivolgervi alla reception.</p>
+
+              <!-- ▼ 2 immagini: sostituisci i nomi dei file ▼ -->
+              <div class="foto-griglia due">
+                <div class="foto"><img src="immagini/colazione-1.jpg" alt="Colazione" onerror="this.remove()"></div>
+                <div class="foto"><img src="immagini/colazione-2.jpg" alt="Colazione" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TOUR ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-tour">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Tour
+        </button>
+        <div class="pannello" id="p-tour">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>Desiderate scoprire la città? Dalla nostra reception possiamo prenotare per voi tutte le esperienze che volete effettuare.</p>
+              <p>Il servizio è completamente gratuito: non richiediamo alcun pagamento per la prenotazione.</p>
+
+              <!-- ▼ 1 immagine: sostituisci il nome del file ▼ -->
+              <div class="foto-griglia una">
+                <div class="foto"><img src="immagini/tour-1.jpg" alt="Tour" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CHECK-OUT ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-checkout">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Check-out
+        </button>
+        <div class="pannello" id="p-checkout">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>Il check-out deve essere effettuato obbligatoriamente entro le ore 11:00.</p>
+              <p>Vi invitiamo a presentarvi in reception per consegnare la chiave e salutarci. Se la vostra partenza è prevista più tardi, potete lasciare i bagagli in deposito (vedere la sezione Bagagli).</p>
+
+              <!-- ▼ 1 immagine: sostituisci il nome del file ▼ -->
+              <div class="foto-griglia una">
+                <div class="foto"><img src="immagini/checkout-1.jpg" alt="Check-out" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== BAGAGLI ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-bagagli">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Bagagli
+        </button>
+        <div class="pannello" id="p-bagagli">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>Mettiamo a vostra disposizione uno spazio dove conservare i bagagli prima del check-in o dopo il check-out. Sono disponibili due opzioni di deposito:</p>
+              <ul>
+                <li><strong>Gratuito</strong>, ma non sorvegliato.</li>
+                <li><strong>A pagamento</strong>, sorvegliato e custodito, al prezzo di 5 € a persona.</li>
+              </ul>
+
+              <!-- ▼ 2 immagini: sostituisci i nomi dei file ▼ -->
+              <div class="foto-griglia due">
+                <div class="foto"><img src="immagini/bagagli-1.jpg" alt="Deposito bagagli" onerror="this.remove()"></div>
+                <div class="foto"><img src="immagini/bagagli-2.jpg" alt="Deposito bagagli" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TAXI ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-taxi">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Taxi
+        </button>
+        <div class="pannello" id="p-taxi">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>All'occorrenza possiamo chiamare un taxi per voi, per qualsiasi zona di Roma desideriate visitare, senza alcun sovrapprezzo.</p>
+              <p>Vi basta rivolgervi alla reception.</p>
+
+              <!-- ▼ 1 immagine: sostituisci il nome del file ▼ -->
+              <div class="foto-griglia una">
+                <div class="foto"><img src="immagini/taxi-1.jpg" alt="Taxi" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.voce-titolo').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var aperto = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!aperto));
+        document.getElementById(btn.getAttribute('aria-controls')).classList.toggle('aperto', !aperto);
+      });
+    });
+  </script>
+
+</body>
+</html>
