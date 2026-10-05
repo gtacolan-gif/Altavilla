@@ -19,19 +19,14 @@
 
     html { height: 100%; }
 
-    /* Altezza della barra superiore (usata anche per far partire lo sfondo sotto di essa) */
     :root {
       --barra: 88px;
-      /* ▼▼▼ CAMBIA QUI il nome/percorso della tua immagine di sfondo ▼▼▼ */
       --sfondo: url("Sfondo.png");
-      /* Colore di riserva: viene sostituito in automatico dal colore della parte bassa dell'immagine (vedi script in fondo) */
       --colore-fondo: #7a6a58;
     }
 
-    /* Questo colore riempie tutto lo schermo, anche sotto la barra del browser del telefono */
     html { background-color: var(--colore-fondo); }
 
-    /* Immagine di sfondo: parte SOTTO la barra e in basso sfuma nel suo stesso colore */
     body::before {
       content: "";
       position: fixed;
@@ -54,7 +49,6 @@
       padding: calc(var(--barra) + 32px) 24px 24px;
     }
 
-    /* ===== BARRA SUPERIORE ===== */
     .barra {
       position: fixed;
       top: 0;
@@ -67,17 +61,13 @@
       gap: 16px;
       height: var(--barra);
       padding: 0 20px;
-      background: rgba(245, 235, 208, 0.75); /* crema, 0.75 = 25% di trasparenza */
+      background: rgba(245, 235, 208, 0.75);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
       box-shadow: 0 2px 14px rgba(0, 0, 0, 0.2);
     }
 
-    .barra img {
-      height: 78px;   /* ◄ altezza del logo (allungato di 10px sull'asse y) */
-      width: 68px;    /* ◄ larghezza del logo */
-      display: block;
-    }
+    .barra img { height: 78px; width: 68px; display: block; }
 
     .barra h1 {
       font-family: "Milestone One", "Milestone", Georgia, "Times New Roman", serif;
@@ -85,7 +75,7 @@
       font-weight: normal;
       letter-spacing: 0.03em;
       line-height: 1.1;
-      color: #582612; /* marrone del logo */
+      color: #582612;
     }
 
     @media (max-width: 480px) {
@@ -96,7 +86,7 @@
     }
 
     .riquadro {
-      background: rgba(245, 235, 208, 0.75); /* crema, 0.75 = 25% di trasparenza (abbassa per più trasparenza) */
+      background: rgba(245, 235, 208, 0.75);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
       border-radius: 14px;
@@ -161,7 +151,6 @@
 
       <!-- ITALIANO -->
       <li>
-        <!-- ▼ Inserisci qui il link alla versione italiana ▼ -->
         <a href="Altaitaliano.html" hreflang="it" lang="it">
           <span class="bandiera" aria-hidden="true">
             <svg viewBox="0 0 60 40" preserveAspectRatio="none">
@@ -176,8 +165,7 @@
 
       <!-- INGLESE -->
       <li>
-        <!-- ▼ Inserisci qui il link alla versione inglese ▼ -->
-        <a href="LINK-INGLESE.html" hreflang="en" lang="en">
+        <a href="Altainglese.html" hreflang="en" lang="en">
           <span class="bandiera" aria-hidden="true">
             <svg viewBox="0 0 60 40" preserveAspectRatio="none">
               <rect width="60" height="40" fill="#012169"/>
@@ -193,8 +181,7 @@
 
       <!-- SPAGNOLO -->
       <li>
-        <!-- ▼ Inserisci qui il link alla versione spagnola ▼ -->
-        <a href="LINK-SPAGNOLO.html" hreflang="es" lang="es">
+        <a href="Altaspagnolo.html" hreflang="es" lang="es">
           <span class="bandiera" aria-hidden="true">
             <svg viewBox="0 0 60 40" preserveAspectRatio="none">
               <rect width="60" height="40" fill="#AA151B"/>
@@ -207,8 +194,7 @@
 
       <!-- FRANCESE -->
       <li>
-        <!-- ▼ Inserisci qui il link alla versione francese ▼ -->
-        <a href="LINK-FRANCESE.html" hreflang="fr" lang="fr">
+        <a href="Altafrancese.html" hreflang="fr" lang="fr">
           <span class="bandiera" aria-hidden="true">
             <svg viewBox="0 0 60 40" preserveAspectRatio="none">
               <rect width="20" height="40" fill="#002395"/>
@@ -220,11 +206,108 @@
         </a>
       </li>
 
+      <!-- TEDESCO -->
+      <li>
+        <a href="Altatedesco.html" hreflang="de" lang="de">
+          <span class="bandiera" aria-hidden="true">
+            <svg viewBox="0 0 60 40" preserveAspectRatio="none">
+              <rect width="60" height="13.3" fill="#000"/>
+              <rect y="13.3" width="60" height="13.3" fill="#DD0000"/>
+              <rect y="26.6" width="60" height="13.4" fill="#FFCE00"/>
+            </svg>
+          </span>
+          Deutsch
+        </a>
+      </li>
+
+      <!-- CINESE -->
+      <li>
+        <a href="Altacinese.html" hreflang="zh" lang="zh">
+          <span class="bandiera" aria-hidden="true">
+            <svg viewBox="0 0 60 40" preserveAspectRatio="none">
+              <rect width="60" height="40" fill="#EE1C25"/>
+              <polygon points="10,4 12,9 17,9 13,12 14,17 10,14 6,17 7,12 3,9 8,9" fill="#FFFF00"/>
+            </svg>
+          </span>
+          中文 (Zhongwen)
+        </a>
+      </li>
+
+      <!-- COREANO -->
+      <li>
+        <a href="Altacoreano.html" hreflang="ko" lang="ko">
+          <span class="bandiera" aria-hidden="true">
+            <svg viewBox="0 0 60 40" preserveAspectRatio="none">
+              <rect width="60" height="40" fill="#fff"/>
+              <circle cx="30" cy="20" r="10" fill="#C60C30"/>
+              <path d="M20,20 a10,10 0 0,0 20,0" fill="#003478"/>
+            </svg>
+          </span>
+          한국어 (Korean)
+        </a>
+      </li>
+
+      <!-- ARABO (Rappresentata con bandiera generica Emirati/Araba per semplicità visiva) -->
+      <li>
+        <a href="Altaarabo.html" hreflang="ar" lang="ar">
+          <span class="bandiera" aria-hidden="true">
+            <svg viewBox="0 0 60 40" preserveAspectRatio="none">
+              <rect width="60" height="13.3" fill="#00732F"/>
+              <rect y="13.3" width="60" height="13.3" fill="#FFF"/>
+              <rect y="26.6" width="60" height="13.4" fill="#000"/>
+              <rect width="17" height="40" fill="#FF0000"/>
+            </svg>
+          </span>
+          العربية (Arabic)
+        </a>
+      </li>
+
+      <!-- RUSSO -->
+      <li>
+        <a href="Altarusso.html" hreflang="ru" lang="ru">
+          <span class="bandiera" aria-hidden="true">
+            <svg viewBox="0 0 60 40" preserveAspectRatio="none">
+              <rect width="60" height="13.3" fill="#FFF"/>
+              <rect y="13.3" width="60" height="13.3" fill="#0039A6"/>
+              <rect y="26.6" width="60" height="13.4" fill="#D52B1E"/>
+            </svg>
+          </span>
+          Русский (Russian)
+        </a>
+      </li>
+
+      <!-- PORTOGHESE -->
+      <li>
+        <a href="Altaportoghese.html" hreflang="pt-PT" lang="pt-PT">
+          <span class="bandiera" aria-hidden="true">
+            <svg viewBox="0 0 60 40" preserveAspectRatio="none">
+              <rect width="24" height="40" fill="#006600"/>
+              <rect x="24" width="36" height="40" fill="#FF0000"/>
+              <circle cx="24" cy="20" r="8" fill="#FFFF00"/>
+            </svg>
+          </span>
+          Português (PT)
+        </a>
+      </li>
+
+      <!-- BRASILIANO -->
+      <li>
+        <a href="Altabrasiliano.html" hreflang="pt-BR" lang="pt-BR">
+          <span class="bandiera" aria-hidden="true">
+            <svg viewBox="0 0 60 40" preserveAspectRatio="none">
+              <rect width="60" height="40" fill="#009C3B"/>
+              <polygon points="30,4 54,20 30,36 6,20" fill="#FFDF00"/>
+              <circle cx="30" cy="20" r="9" fill="#002776"/>
+            </svg>
+          </span>
+          Português (BR)
+        </a>
+      </li>
+
     </ul>
   </main>
 
   <script>
-    /* Calcola il colore medio della parte bassa dell'immagine di sfondo, per sfumare il fondo della pagina */
     (function () {
       var m = getComputedStyle(document.documentElement).getPropertyValue('--sfondo').match(/url\(["']?(.*?)["']?\)/);
       if (!m) return;
@@ -239,7 +322,7 @@
           for (var i = 0; i < d.length; i += 4) { r += d[i]; g += d[i + 1]; b += d[i + 2]; }
           document.documentElement.style.setProperty('--colore-fondo',
             'rgb(' + Math.round(r / k) + ',' + Math.round(g / k) + ',' + Math.round(b / k) + ')');
-        } catch (e) { /* se l'immagine non è leggibile resta il colore di riserva */ }
+        } catch (e) { }
       };
       img.src = m[1];
     })();
