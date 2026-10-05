@@ -17,13 +17,28 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
+    /* Altezza della barra superiore (usata anche per far partire lo sfondo sotto di essa) */
+    :root { --barra: 88px; }
+
+    /* Immagine di sfondo: parte SOTTO la barra e arriva fino al fondo dello schermo */
+    body::before {
+      content: "";
+      position: fixed;
+      top: var(--barra);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
       /* ▼▼▼ CAMBIA QUI il nome/percorso della tua immagine di sfondo ▼▼▼ */
-      background: #5b6770 url("Sfondo.png") center / cover no-repeat fixed;
+      background: url("Sfondo.png") center / cover no-repeat;
+    }
+
+    body {
+      background: #5b6770; /* colore visibile dietro la barra */
       font-family: Georgia, "Times New Roman", serif;
       color: #2b2118;
       min-height: 100vh;
-      padding: 112px 20px 40px;
+      padding: calc(var(--barra) + 24px) 20px 40px;
     }
 
     /* ===== BARRA SUPERIORE ===== */
@@ -37,7 +52,8 @@
       align-items: center;
       justify-content: center;
       gap: 16px;
-      padding: 5px 20px;
+      height: var(--barra);
+      padding: 0 20px;
       background: rgba(245, 235, 208, 0.75); /* crema, 0.75 = 25% di trasparenza */
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
@@ -57,6 +73,14 @@
       letter-spacing: 0.03em;
       line-height: 1.1;
       color: #582612; /* marrone del logo */
+    }
+
+    .marchio {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: inherit;
+      text-decoration: none;
     }
 
     /* ===== CONTENUTO ===== */
@@ -163,6 +187,8 @@
     .contenuto ul { margin: 0 0 12px 20px; font-size: 1.1rem; line-height: 1.65; }
     .contenuto li { margin-bottom: 6px; }
 
+    .credenziali a { color: #582612; }
+
     .credenziali {
       background: rgba(255, 255, 255, 0.55);
       border-left: 4px solid #582612;
@@ -181,7 +207,6 @@
     }
 
     .foto-griglia.una { grid-template-columns: 1fr; }
-    .foto-griglia.due { grid-template-columns: 1fr 1fr; }
 
     .foto {
       position: relative;
@@ -200,7 +225,6 @@
     .foto::before { content: "Inserisci qui l'immagine"; }
 
     .una .foto { aspect-ratio: 16 / 9; }
-    .due .foto { aspect-ratio: 4 / 3; }
 
     .foto img {
       position: absolute;
@@ -211,25 +235,39 @@
       display: block;
     }
 
+    /* Immagine cliccabile (es. Wi-Fi) */
+    .foto a {
+      position: absolute;
+      inset: 0;
+      display: block;
+      cursor: pointer;
+    }
+
+    .foto a:focus-visible { outline: 3px solid #582612; outline-offset: -3px; }
+
     /* ===== TELEFONO ===== */
     @media (max-width: 480px) {
-      body { padding: 100px 12px 28px; }
-      .barra { gap: 10px; padding: 5px 12px; }
+      :root { --barra: 64px; }
+      body { padding: calc(var(--barra) + 16px) 12px 28px; }
+      .barra { gap: 10px; padding: 0 12px; }
+      .marchio { gap: 10px; }
       .barra img { height: 54px; width: 44px; }
       .barra h1 { font-size: 1.7rem; }
       .recensione { font-size: 1.05rem; padding: 10px 18px; gap: 10px; }
       .riquadro { padding: 6px 14px; }
       .voce-titolo { font-size: 1.35rem; padding: 16px 4px; gap: 12px; }
       .contenuto { padding: 2px 4px 20px 4px; }
-      .foto-griglia.due { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
   <header class="barra">
-    <img src="Altavilla.png" alt="Logo Hotel Altavilla Roma">
-    <h1>Hotel Altavilla</h1>
+    <!-- Logo e titolo cliccabili: riportano alla pagina index.html -->
+    <a class="marchio" href="index.html" aria-label="Torna alla pagina iniziale">
+      <img src="Altavilla.png" alt="Logo Hotel Altavilla Roma">
+      <h1>Hotel Altavilla</h1>
+    </a>
   </header>
 
   <main>
@@ -263,9 +301,13 @@
               </div>
               <p>Per qualsiasi difficoltà di connessione, il personale della reception sarà lieto di aiutarvi.</p>
 
-              <!-- ▼ 1 immagine: sostituisci il nome del file ▼ -->
+              <!-- ▼ 1 immagine CLICCABILE: sostituisci il nome del file e LINK-WIFI con il tuo link ▼ -->
               <div class="foto-griglia una">
-                <div class="foto"><img src="immagini/wifi-1.jpg" alt="Wi-Fi" onerror="this.remove()"></div>
+                <div class="foto">
+                  <a href="LINK-WIFI" aria-label="Connettiti al Wi-Fi">
+                    <img src="immagini/wifi-1.jpg" alt="Connettiti al Wi-Fi" onerror="this.remove()">
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -285,10 +327,9 @@
               <p>Ogni giorno provvediamo al cambio di lenzuola, fodere e asciugamani in tutte le camere e al rifornimento di saponi e carta igienica, per garantirvi sempre un soggiorno confortevole.</p>
               <p>Vi ricordiamo che, ogni volta che uscite dalla struttura, è obbligatorio lasciare le vostre chiavi in reception.</p>
 
-              <!-- ▼ 2 immagini: sostituisci i nomi dei file ▼ -->
-              <div class="foto-griglia due">
+              <!-- ▼ 1 immagine: sostituisci il nome del file ▼ -->
+              <div class="foto-griglia una">
                 <div class="foto"><img src="immagini/informazioni-1.jpg" alt="Informazioni" onerror="this.remove()"></div>
-                <div class="foto"><img src="immagini/informazioni-2.jpg" alt="Informazioni" onerror="this.remove()"></div>
               </div>
             </div>
           </div>
@@ -307,10 +348,9 @@
               <p>Offriamo una ricca colazione, servita dalle 8:00 alle 10:00.</p>
               <p>Se non è inclusa nella vostra tariffa, il costo è di 7,50 € a persona. Per il pagamento vi invitiamo a rivolgervi alla reception.</p>
 
-              <!-- ▼ 2 immagini: sostituisci i nomi dei file ▼ -->
-              <div class="foto-griglia due">
+              <!-- ▼ 1 immagine: sostituisci il nome del file ▼ -->
+              <div class="foto-griglia una">
                 <div class="foto"><img src="immagini/colazione-1.jpg" alt="Colazione" onerror="this.remove()"></div>
-                <div class="foto"><img src="immagini/colazione-2.jpg" alt="Colazione" onerror="this.remove()"></div>
               </div>
             </div>
           </div>
@@ -374,10 +414,9 @@
                 <li><strong>A pagamento</strong>, sorvegliato e custodito, al prezzo di 5 € a persona.</li>
               </ul>
 
-              <!-- ▼ 2 immagini: sostituisci i nomi dei file ▼ -->
-              <div class="foto-griglia due">
+              <!-- ▼ 1 immagine: sostituisci il nome del file ▼ -->
+              <div class="foto-griglia una">
                 <div class="foto"><img src="immagini/bagagli-1.jpg" alt="Deposito bagagli" onerror="this.remove()"></div>
-                <div class="foto"><img src="immagini/bagagli-2.jpg" alt="Deposito bagagli" onerror="this.remove()"></div>
               </div>
             </div>
           </div>
@@ -399,6 +438,26 @@
               <!-- ▼ 1 immagine: sostituisci il nome del file ▼ -->
               <div class="foto-griglia una">
                 <div class="foto"><img src="immagini/taxi-1.jpg" alt="Taxi" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CONTATTI ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-contatti">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Contatti
+        </button>
+        <div class="pannello" id="p-contatti">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>Per qualsiasi informazione o richiesta, siamo a vostra disposizione:</p>
+              <div class="credenziali">
+                <!-- ▼ Inserisci il numero di telefono: sostituisci NUMERO nel link (es. tel:+390612345678) e il testo visibile ▼ -->
+                <strong>Telefono:</strong> <a href="tel:NUMERO">NUMERO DI TELEFONO</a><br>
+                <strong>E-mail:</strong> <a href="mailto:info@hotelaltavilla.it">info@hotelaltavilla.it</a>
               </div>
             </div>
           </div>
