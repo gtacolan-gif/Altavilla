@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hotel Altavilla · معلومات</title>
+  <title>Hotel Altavilla · Информация</title>
   <style>
     /* ▼ FONT MILESTONE: metti il file del font nella stessa cartella e controlla il nome qui sotto ▼ */
     @font-face {
@@ -300,7 +300,7 @@
       padding: 8px;
     }
 
-    .foto::before { content: "أدخل الصورة هنا"; }
+    .foto::before { content: "Вставьте изображение здесь"; }
 
     .una .foto { aspect-ratio: 16 / 9; }
 
@@ -340,30 +340,17 @@
       .tappe li { padding: 10px 12px 12px; }
       .tappe strong { font-size: 1.1rem; }
     }
-
-    /* ===== REGOLE RTL (Destra a Sinistra) PER ARABO ===== */
-    [dir="rtl"] .voce-titolo { text-align: right; }
-    [dir="rtl"] .contenuto { padding: 4px 50px 22px 8px; }
-    [dir="rtl"] .contenuto ul { margin: 0 20px 12px 0; }
-    [dir="rtl"] .indietro { left: auto; right: 16px; }
-    [dir="rtl"] .indietro svg { transform: scaleX(-1); } /* Specchia la freccia */
-    [dir="rtl"] .marchio { margin-right: 54px; gap: 16px; }
-    
-    @media (max-width: 480px) {
-      [dir="rtl"] .indietro { left: auto; right: 6px; }
-      [dir="rtl"] .marchio { margin-right: 44px; }
-    }
   </style>
 </head>
 <body>
 
   <header class="barra">
-    <a class="indietro" href="index.html" aria-label="العودة إلى اختيار اللغة">
+    <a class="indietro" href="index.html" aria-label="Вернуться к выбору языка">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5M11 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
 
-    <a class="marchio" href="index.html" aria-label="العودة إلى الصفحة الرئيسية">
-      <img src="Altavilla.png" alt="شعار فندق ألتافيلا روما">
+    <a class="marchio" href="index.html" aria-label="Вернуться на главную страницу">
+      <img src="Altavilla.png" alt="Логотип Hotel Altavilla Rome">
       <h1>Hotel Altavilla</h1>
     </a>
   </header>
@@ -382,7 +369,7 @@
         <circle cx="32" cy="26" r="3.3" fill="#000"/>
         <path d="M24 28.5 L21 32.5 L27 32.5 Z" fill="#000" stroke="#000" stroke-width="1.2" stroke-linejoin="round"/>
       </svg>
-      <span>رأيك يهمنا</span>
+      <span>Ваше мнение важно для нас</span>
     </a>
 
     <div class="riquadro">
@@ -391,17 +378,17 @@
       <section class="voce">
         <button class="voce-titolo" aria-expanded="false" aria-controls="p-wifi">
           <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          واي فاي (Wi-Fi)
+          Wi-Fi
         </button>
         <div class="pannello" id="p-wifi">
           <div class="pannello-interno">
             <div class="contenuto">
-              <p>للاتصال بشبكة الواي فاي الخاصة بالفندق، اختر الشبكة وأدخل البيانات التالية:</p>
+              <p>Чтобы подключиться к сети Wi-Fi отеля, выберите сеть и введите следующие данные:</p>
               <div class="credenziali">
-                <strong>اسم المستخدم:</strong> Altavilla <small class="nota">(جميع شبكات الواي فاي لها نفس كلمة المرور)</small>
-                <strong>كلمة المرور:</strong> 91938163
+                <strong>Имя пользователя:</strong> Altavilla <small class="nota">(у всех сетей Wi-Fi одинаковый пароль)</small>
+                <strong>Пароль:</strong> 91938163
               </div>
-              <p>في حال وجود أي صعوبة في الاتصال، سيسعد موظفو الاستقبال بمساعدتك.</p>
+              <p>В случае возникновения проблем с подключением сотрудники стойки регистрации будут рады вам помочь.</p>
             </div>
           </div>
         </div>
@@ -411,16 +398,16 @@
       <section class="voce">
         <button class="voce-titolo" aria-expanded="false" aria-controls="p-informazioni">
           <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          معلومات
+          Информация
         </button>
         <div class="pannello" id="p-informazioni">
           <div class="pannello-interno">
             <div class="contenuto">
-              <p>يفتح مكان الإقامة الخاص بنا على مدار 24 ساعة طوال أيام الأسبوع للترحيب بك في أي وقت من اليوم.</p>
-              <p>كل ثلاثة أيام نقوم بتغيير الملاءات وأكياس الوسائد والمناشف في جميع الغرف، ونقوم كل يوم بتوفير الصابون وورق التواليت لضمان إقامة مريحة لك دائمًا.</p>
-              <p>نذكرك أنه في كل مرة تغادر فيها الفندق، يجب عليك ترك مفاتيحك في مكتب الاستقبال.</p>
+              <p>Наш отель открыт круглосуточно и без выходных, чтобы приветствовать вас в любое время дня.</p>
+              <p>Каждые три дня мы меняем постельное белье, наволочки и полотенца во всех номерах, а каждый день пополняем запасы мыла и туалетной бумаги, чтобы гарантировать вам комфортное пребывание.</p>
+              <p>Напоминаем, что каждый раз, когда вы покидаете отель, необходимо оставлять ключи на стойке регистрации.</p>
               <div class="foto-griglia una">
-                <div class="foto"><img src="Reception.jpg" alt="معلومات" onerror="this.remove()"></div>
+                <div class="foto"><img src="Reception.jpg" alt="Информация" onerror="this.remove()"></div>
               </div>
             </div>
           </div>
@@ -431,15 +418,15 @@
       <section class="voce">
         <button class="voce-titolo" aria-expanded="false" aria-controls="p-colazione">
           <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          الإفطار
+          Завтрак
         </button>
         <div class="pannello" id="p-colazione">
           <div class="pannello-interno">
             <div class="contenuto">
-              <p>نقدم إفطارًا غنيًا يُقدم من الساعة 8:00 صباحًا حتى 10:00 صباحًا.</p>
-              <p>إذا لم يكن مشمولاً في سعر غرفتك، فالتكلفة هي 7.50 يورو للشخص الواحد. للدفع، يرجى التوجه إلى مكتب الاستقبال.</p>
+              <p>Мы предлагаем сытный завтрак, который подается с 8:00 до 10:00.</p>
+              <p>Если он не включен в ваш тариф, стоимость составляет 7,50 евро с человека. Для оплаты обращайтесь на стойку регистрации.</p>
               <div class="foto-griglia una">
-                <div class="foto"><img src="Colazione.jpg" alt="الإفطار" onerror="this.remove()"></div>
+                <div class="foto"><img src="Colazione.jpg" alt="Завтрак" onerror="this.remove()"></div>
               </div>
             </div>
           </div>
@@ -450,62 +437,62 @@
       <section class="voce">
         <button class="voce-titolo" aria-expanded="false" aria-controls="p-tour">
           <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          الجولات السياحية
+          Экскурсии
         </button>
         <div class="pannello" id="p-tour">
           <div class="pannello-interno">
             <div class="contenuto">
-              <p>هل ترغب في اكتشاف المدينة؟ من مكتب الاستقبال لدينا، يمكننا حجز جميع التجارب التي ترغب في القيام بها. يقع الفندق في Via Principe Amedeo 9، على بعد حوالي 0.3 كم من محطة تيرميني (5 دقائق سيرًا على الأقدام). إليك أهم التجارب المتاحة مع MP Tour، مع الاتجاهات ومسافة المشي من الفندق:</p>
+              <p>Хотите открыть для себя город? На нашей стойке регистрации мы можем забронировать для вас любые экскурсии. Отель находится по адресу Via Principe Amedeo 9, примерно в 0,3 км от вокзала Термини (5 минут пешком). Вот основные экскурсии, доступные с MP Tour, с указанием маршрута и расстояния пешком от отеля:</p>
               <ul class="tappe">
                 <li>
-                  <strong>الكولوسيوم والمنتدى الروماني وتل بالاتين</strong>
-                  <span class="dist">1.6 كم · 20 دقيقة سيرًا</span>
-                  اتجه إلى شارع Via Cavour واتبعه حتى شارع Via dei Fori Imperiali: من هناك يمكنك رؤية المنتدى الروماني والكولوسيوم بوضوح. تتوفر جولات إرشادية مع دليل صوتي أو دخول سريع.
+                  <strong>Колизей, Римский форум и Палатин</strong>
+                  <span class="dist">1,6 км · 20 мин пешком</span>
+                  Дойдите до Via Cavour и следуйте по ней до Via dei Fori Imperiali: оттуда хорошо видны Римский форум и Колизей. Доступны экскурсии с гидом, аудиогидом или быстрым входом.
                 </li>
                 <li>
-                  <strong>نافورة تريفي</strong>
-                  <span class="dist">1.4 كم · 17 دقيقة سيرًا</span>
-                  انزل عبر شارع Via Nazionale باتجاه ساحة فينيسيا (Piazza Venezia) واتبع اللافتات المؤدية إلى النافورة. تتوفر جولات مشي وجولات تحت الأرض.
+                  <strong>Фонтан Треви</strong>
+                  <span class="dist">1,4 км · 17 мин пешком</span>
+                  Спускайтесь по Via Nazionale в сторону Piazza Venezia и следуйте указателям к фонтану. Доступны пешие экскурсии и экскурсии по подземельям.
                 </li>
                 <li>
-                  <strong>البانثيون</strong>
-                  <span class="dist">2 كم · 25 دقيقة سيرًا</span>
-                  مر بنافورة تريفي واستمر لمسافة 0.6 كم تقريبًا باتجاه شارع Via del Corso والبانثيون.
+                  <strong>Пантеон</strong>
+                  <span class="dist">2 км · 25 мин пешком</span>
+                  Пройдите мимо фонтана Треви и продолжайте идти еще около 0,6 км в сторону Via del Corso и Пантеона.
                 </li>
                 <li>
-                  <strong>ساحة نافونا تحت الأرض</strong>
-                  <span class="dist">2.3 كم · 28 دقيقة سيرًا</span>
-                  من البانثيون استمر لمسافة 0.3 كم تقريبًا إلى ساحة نافونا.
+                  <strong>Подземелья площади Навона (Piazza Navona Underground)</strong>
+                  <span class="dist">2,3 км · 28 мин пешком</span>
+                  От Пантеона пройдите около 0,3 км до площади Навона.
                 </li>
                 <li>
-                  <strong>قلعة سانت أنجلو</strong>
-                  <span class="dist">3.2 كم · 40 دقيقة سيرًا</span>
-                  من ساحة نافونا استمر باتجاه نهر التيبر وجسر سانت أنجلو. بدلاً من ذلك، يمكنك استخدام وسائل النقل العام من محطة تيرميني.
+                  <strong>Замок Святого Ангела</strong>
+                  <span class="dist">3,2 км · 40 мин пешком</span>
+                  От площади Навона идите в сторону Тибра и моста Святого Ангела. В качестве альтернативы вы можете воспользоваться общественным транспортом от Термини.
                 </li>
                 <li>
-                  <strong>الفاتيكان</strong> (متاحف الفاتيكان، كنيسة القديس بطرس والقبة، الحدائق)
-                  <span class="dist">4.5 كم · 55 دقيقة سيرًا</span>
-                  ننصحك بأخذ خط المترو A من محطة تيرميني (على بعد 0.3 كم تقريبًا من الفندق) باتجاه Battistini، والنزول في محطة Ottaviano: من هناك يستغرق الأمر حوالي 10 دقائق سيرًا على الأقدام.
+                  <strong>Ватикан</strong> (Музеи Ватикана, Базилика и Купол Святого Петра, Сады)
+                  <span class="dist">4,5 км · 55 мин пешком</span>
+                  Мы рекомендуем ехать на метро (линия А) от Термини (около 0,3 км от отеля) в направлении Battistini, остановка Ottaviano: оттуда около 10 минут пешком.
                 </li>
                 <li>
-                  <strong>متاحف الكابيتولين</strong>
-                  <span class="dist">2 كم · 25 دقيقة سيرًا</span>
-                  انزل عبر شارع Via Nazionale حتى ساحة فينيسيا واصعد سلالم Cordonata باتجاه ساحة الكابيتول.
+                  <strong>Капитолийские музеи</strong>
+                  <span class="dist">2 км · 25 мин пешком</span>
+                  Спускайтесь по Via Nazionale до Piazza Venezia и поднимайтесь по лестнице Кордоната к Piazza del Campidoglio.
                 </li>
                 <li>
-                  <strong>معرض بورغيزي</strong>
-                  <span class="dist">2.5 كم · 30 دقيقة سيرًا</span>
-                  اتجه نحو شارع Via Veneto واصعد حتى بوابة Porta Pinciana، ثم ادخل إلى حدائق فيلا بورغيزي: يقع المعرض داخل الحديقة.
+                  <strong>Галерея Боргезе</strong>
+                  <span class="dist">2,5 км · 30 мин пешком</span>
+                  Направляйтесь к Via Veneto и поднимайтесь по ней до Porta Pinciana, затем войдите на Виллу Боргезе: галерея находится в парке.
                 </li>
                 <li>
-                  <strong>حافلة سياحية، عربة جولف، جولات مشي وتذوق طعام</strong>
-                  <span class="dist">0.3 كم · 4 دقائق سيرًا</span>
-                  سيرشدك مكتب الاستقبال إلى نقطة التجمع لجميع التجارب التي اخترتها.
+                  <strong>Автобусы Hop on Hop off, гольф-кары, пешие туры и дегустации Food &amp; Wine</strong>
+                  <span class="dist">0,3 км · 4 мин пешком</span>
+                  На стойке регистрации вам укажут место встречи для всех выбранных вами экскурсий.
                 </li>
               </ul>
-              <p>المسافات تقريبية ومحسوبة من الفندق. لمعرفة المواعيد والمدة والتوافر، ندعوك للتوجه إلى مكتب الاستقبال.</p>
+              <p>Расстояния являются приблизительными и рассчитаны от отеля. Для получения информации о расписании, продолжительности и наличии мест обращайтесь на стойку регистрации.</p>
               <div class="foto-griglia una">
-                <div class="foto"><img src="Tour2.jpg" alt="الجولات السياحية" onerror="this.remove()"></div>
+                <div class="foto"><img src="Tour2.jpg" alt="Экскурсии" onerror="this.remove()"></div>
               </div>
             </div>
           </div>
@@ -516,15 +503,15 @@
       <section class="voce">
         <button class="voce-titolo" aria-expanded="false" aria-controls="p-checkout">
           <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          تسجيل المغادرة
+          Выезд (Check-out)
         </button>
         <div class="pannello" id="p-checkout">
           <div class="pannello-interno">
             <div class="contenuto">
-              <p>يجب إتمام تسجيل المغادرة في موعد أقصاه الساعة 11:00 صباحًا.</p>
-              <p>ندعوك للحضور إلى مكتب الاستقبال لتسليم مفتاحك وتوديعنا. إذا كانت مغادرتك مقررة في وقت لاحق، يمكنك ترك أمتعتك في مخزننا (انظر قسم الأمتعة).</p>
+              <p>Выезд из отеля (check-out) должен быть произведен строго до 11:00.</p>
+              <p>Просим вас подойти на стойку регистрации, чтобы сдать ключ. Если ваш отъезд запланирован на более позднее время, вы можете оставить багаж в камере хранения (см. раздел «Багаж»).</p>
               <div class="foto-griglia una">
-                <div class="foto"><img src="Checkout.jpg" alt="تسجيل المغادرة" onerror="this.remove()"></div>
+                <div class="foto"><img src="Checkout.jpg" alt="Выезд" onerror="this.remove()"></div>
               </div>
             </div>
           </div>
@@ -535,18 +522,18 @@
       <section class="voce">
         <button class="voce-titolo" aria-expanded="false" aria-controls="p-bagagli">
           <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          الأمتعة
+          Багаж
         </button>
         <div class="pannello" id="p-bagagli">
           <div class="pannello-interno">
             <div class="contenuto">
-              <p>نوفر لك مساحة حيث يمكنك الاحتفاظ بأمتعتك قبل تسجيل الوصول أو بعد تسجيل المغادرة. يتوفر خياران للتخزين:</p>
+              <p>Мы предоставляем вам место, где можно оставить багаж до заезда (check-in) или после выезда (check-out). Доступны два варианта хранения:</p>
               <ul>
-                <li><strong>مجاني</strong>، ولكنه غير مراقب.</li>
-                <li><strong>مدفوع</strong>، مراقب وآمن، بتكلفة 5 يورو للشخص الواحد.</li>
+                <li><strong>Бесплатно</strong>, но без присмотра.</li>
+                <li><strong>Платно</strong>, под охраной и присмотром, по цене 5 евро с человека.</li>
               </ul>
               <div class="foto-griglia una">
-                <div class="foto"><img src="Bagagli.jpg" alt="تخزين الأمتعة" onerror="this.remove()"></div>
+                <div class="foto"><img src="Bagagli.jpg" alt="Камера хранения багажа" onerror="this.remove()"></div>
               </div>
             </div>
           </div>
@@ -557,15 +544,15 @@
       <section class="voce">
         <button class="voce-titolo" aria-expanded="false" aria-controls="p-taxi">
           <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          سيارة أجرة (تاكسي)
+          Такси
         </button>
         <div class="pannello" id="p-taxi">
           <div class="pannello-interno">
             <div class="contenuto">
-              <p>عند الحاجة، يمكننا الاتصال بسيارة أجرة من أجلك لأي منطقة في روما ترغب في زيارتها، دون أي تكلفة إضافية.</p>
-              <p>كل ما عليك هو التوجه إلى موظفي الاستقبال.</p>
+              <p>При необходимости мы можем вызвать для вас такси в любой район Рима без каких-либо наценок.</p>
+              <p>Просто обратитесь на стойку регистрации.</p>
               <div class="foto-griglia una">
-                <div class="foto"><img src="Taxi.jpg" alt="سيارة أجرة" onerror="this.remove()"></div>
+                <div class="foto"><img src="Taxi.jpg" alt="Такси" onerror="this.remove()"></div>
               </div>
             </div>
           </div>
@@ -576,15 +563,15 @@
       <section class="voce">
         <button class="voce-titolo" aria-expanded="false" aria-controls="p-contatti">
           <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          جهات الاتصال
+          Контакты
         </button>
         <div class="pannello" id="p-contatti">
           <div class="pannello-interno">
             <div class="contenuto">
-              <p>لأي معلومات أو طلب، نحن تحت تصرفك:</p>
+              <p>Для любой информации или запроса мы к вашим услугам:</p>
               <div class="credenziali">
-                <strong>الهاتف:</strong> <a href="tel:NUMERO">+39 06 47825 568</a><br>
-                <strong>البريد الإلكتروني:</strong> <a href="mailto:info@hotelaltavilla.it">info@hotelaltavilla.it</a>
+                <strong>Телефон:</strong> <a href="tel:NUMERO">+39 06 47825 568</a><br>
+                <strong>E-mail:</strong> <a href="mailto:info@hotelaltavilla.it">info@hotelaltavilla.it</a>
               </div>
             </div>
           </div>
