@@ -20,23 +20,32 @@
     html { height: 100%; }
 
     /* Altezza della barra superiore (usata anche per far partire lo sfondo sotto di essa) */
-    :root { --barra: 88px; }
+    :root {
+      --barra: 88px;
+      /* ▼▼▼ CAMBIA QUI il nome/percorso della tua immagine di sfondo ▼▼▼ */
+      --sfondo: url("Sfondo.png");
+      /* Colore di riserva: viene sostituito in automatico dal colore della parte bassa dell'immagine (vedi script in fondo) */
+      --colore-fondo: #7a6a58;
+    }
 
-    /* Immagine di sfondo: parte SOTTO la barra e arriva fino al fondo dello schermo */
+    /* Questo colore riempie tutto lo schermo, anche sotto la barra del browser del telefono */
+    html { background-color: var(--colore-fondo); }
+
+    /* Immagine di sfondo: parte SOTTO la barra e in basso sfuma nel suo stesso colore */
     body::before {
       content: "";
       position: fixed;
       top: var(--barra);
       left: 0;
       right: 0;
-      bottom: -200px; /* sporge sotto lo schermo: evita la striscia grigia sui telefoni quando la barra del browser si nasconde */
+      bottom: 0;
       z-index: -1;
-      /* ▼▼▼ CAMBIA QUI il nome/percorso della tua immagine di sfondo ▼▼▼ */
-      background: url("Sfondo.png") center / cover no-repeat;
+      background:
+        linear-gradient(to bottom, transparent calc(100% - 180px), var(--colore-fondo) 100%),
+        var(--sfondo) center / cover no-repeat;
     }
 
     body {
-      background: #5b6770; /* colore visibile dietro la barra */
       font-family: Georgia, "Times New Roman", serif;
       display: flex;
       align-items: center;
@@ -213,6 +222,28 @@
 
     </ul>
   </main>
+
+  <script>
+    /* Calcola il colore medio della parte bassa dell'immagine di sfondo, per sfumare il fondo della pagina */
+    (function () {
+      var m = getComputedStyle(document.documentElement).getPropertyValue('--sfondo').match(/url\(["']?(.*?)["']?\)/);
+      if (!m) return;
+      var img = new Image();
+      img.onload = function () {
+        try {
+          var n = 8, c = document.createElement('canvas');
+          c.width = c.height = n;
+          var x = c.getContext('2d');
+          x.drawImage(img, 0, img.height * 0.9, img.width, img.height * 0.1, 0, 0, n, n);
+          var d = x.getImageData(0, 0, n, n).data, r = 0, g = 0, b = 0, k = n * n;
+          for (var i = 0; i < d.length; i += 4) { r += d[i]; g += d[i + 1]; b += d[i + 2]; }
+          document.documentElement.style.setProperty('--colore-fondo',
+            'rgb(' + Math.round(r / k) + ',' + Math.round(g / k) + ',' + Math.round(b / k) + ')');
+        } catch (e) { /* se l'immagine non è leggibile resta il colore di riserva */ }
+      };
+      img.src = m[1];
+    })();
+  </script>
 
 </body>
 </html>
