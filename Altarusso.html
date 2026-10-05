@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hotel Altavilla · معلومات</title>
+  <style>
+    /* ▼ FONT MILESTONE: metti il file del font nella stessa cartella e controlla il nome qui sotto ▼ */
+    @font-face {
+      font-family: "Milestone One";
+      src: local("Milestone One"), local("MilestoneOne"),
+           url("MilestoneOne.woff2") format("woff2"),
+           url("MilestoneOne.ttf") format("truetype"),
+           url("MilestoneOne.otf") format("opentype");
+      font-display: swap;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Altezza della barra superiore (usata anche per far partire lo sfondo sotto di essa) */
+    :root {
+      --barra: 88px;
+      /* ▼▼▼ CAMBIA QUI il nome/percorso della tua immagine di sfondo ▼▼▼ */
+      --sfondo: url("Sfondo.png");
+      /* Colore di riserva: viene sostituito in automatico dal colore della parte bassa dell'immagine (vedi script in fondo) */
+      --colore-fondo: #7a6a58;
+    }
+
+    /* Questo colore riempie tutto lo schermo, anche sotto la barra del browser del telefono */
+    html { background-color: var(--colore-fondo); }
+
+    /* Immagine di sfondo: parte SOTTO la barra e in basso sfuma nel suo stesso colore */
+    body::before {
+      content: "";
+      position: fixed;
+      top: var(--barra);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      background:
+        linear-gradient(to bottom, transparent calc(100% - 180px), var(--colore-fondo) 100%),
+        var(--sfondo) center / cover no-repeat;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      color: #2b2118;
+      min-height: 100vh;
+      padding: calc(var(--barra) + 24px) 20px 40px;
+    }
+
+    /* ===== BARRA SUPERIORE ===== */
+    .barra {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      height: var(--barra);
+      padding: 0 20px;
+      background: rgba(245, 235, 208, 0.75); /* crema, 0.75 = 25% di trasparenza */
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    .barra img {
+      height: 78px;
+      width: 68px;
+      display: block;
+    }
+
+    .barra h1 {
+      font-family: "Milestone One", "Milestone", Georgia, "Times New Roman", serif;
+      font-size: 2.8rem;
+      font-weight: normal;
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+      color: #582612; /* marrone del logo */
+    }
+
+    /* Freccia "indietro" a sinistra nella barra */
+    .indietro {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: #582612;
+      background: rgba(255, 255, 255, 0.35);
+      transition: background 0.2s;
+    }
+
+    .indietro svg { width: 26px; height: 26px; display: block; }
+
+    .indietro:hover,
+    .indietro:focus-visible {
+      background: rgba(255, 255, 255, 0.8);
+      outline: 2px solid #582612;
+      outline-offset: 1px;
+    }
+
+    .marchio {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ===== CONTENUTO ===== */
+    main {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* Link Google (recensioni) */
+    .recensione {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto 18px;
+      padding: 10px 24px;
+      background: rgba(245, 235, 208, 0.75);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 999px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+      color: #582612;
+      text-decoration: none;
+      font-size: 1.25rem;
+      transition: background 0.2s;
+    }
+
+    .recensione:hover,
+    .recensione:focus-visible {
+      background: rgba(255, 250, 235, 0.92);
+      outline: 2px solid #582612;
+      outline-offset: 2px;
+    }
+
+    .recensione svg { flex: 0 0 auto; width: 30px; height: 30px; display: block; }
+
+    /* Riquadro centrale */
+    .riquadro {
+      background: rgba(245, 235, 208, 0.75); /* crema, 0.75 = 25% di trasparenza */
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 14px;
+      padding: 10px 28px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    /* ===== ELENCO A FISARMONICA ===== */
+    .voce { border-bottom: 1px solid rgba(88, 38, 18, 0.22); }
+    .voce:last-child { border-bottom: none; }
+
+    .voce-titolo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      padding: 18px 8px;
+      background: none;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1.6rem;
+      text-align: left;
+      color: #582612;
+    }
+
+    .voce-titolo:hover { background: rgba(255, 255, 255, 0.3); }
+    .voce-titolo:focus-visible { outline: 2px solid #582612; outline-offset: -2px; }
+
+    /* Freccia: punta verso la scritta (destra) e ruota in senso orario fino a puntare in basso */
+    .freccia {
+      flex: 0 0 auto;
+      width: 26px;
+      height: 26px;
+      transition: transform 0.35s ease;
+    }
+
+    .voce-titolo[aria-expanded="true"] .freccia { transform: rotate(90deg); }
+
+    /* Pannello che si apre */
+    .pannello {
+      display: grid;
+      grid-template-rows: 0fr;
+      visibility: hidden;
+      transition: grid-template-rows 0.35s ease, visibility 0s linear 0.35s;
+    }
+
+    .pannello.aperto {
+      grid-template-rows: 1fr;
+      visibility: visible;
+      transition: grid-template-rows 0.35s ease, visibility 0s;
+    }
+
+    .pannello-interno { overflow: hidden; }
+
+    .contenuto { padding: 4px 8px 22px 50px; }
+
+    .contenuto p { font-size: 1.1rem; line-height: 1.65; margin-bottom: 12px; }
+    .contenuto p:last-child { margin-bottom: 0; }
+
+    .contenuto ul { margin: 0 0 12px 20px; font-size: 1.1rem; line-height: 1.65; }
+    .contenuto li { margin-bottom: 6px; }
+
+    /* Elenco con distanze (sezione Tour): una scheda per ogni luogo */
+    .contenuto ul.tappe { list-style: none; margin: 8px 0 18px; padding: 0; }
+
+    .tappe li {
+      margin: 0 0 10px;
+      padding: 12px 16px 14px;
+      background: rgba(255, 255, 255, 0.45);
+      border: 2px solid #582612; /* Bordo completo come richiesto */
+      border-radius: 8px;
+      font-size: 1.02rem;
+      line-height: 1.55;
+    }
+
+    .tappe li:last-child { margin-bottom: 0; }
+
+    .tappe strong {
+      display: block;
+      font-size: 1.2rem;
+      line-height: 1.3;
+      color: #582612;
+    }
+
+    .dist {
+      display: block;
+      width: fit-content;
+      margin: 6px 0 8px;
+      padding: 2px 12px;
+      border-radius: 999px;
+      background: rgba(88, 38, 18, 0.14);
+      color: #582612;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .credenziali a { color: #582612; }
+
+    /* Nota sotto lo username del Wi-Fi */
+    .credenziali .nota {
+      display: block;
+      margin: 0 0 6px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      opacity: 0.85;
+    }
+
+    .credenziali {
+      background: rgba(255, 255, 255, 0.55);
+      border: 2px solid #582612; /* Bordo completo come richiesto */
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin: 4px 0 14px;
+      font-size: 1.15rem;
+      line-height: 1.8;
+    }
+
+    /* ===== SPAZI PER LE IMMAGINI ===== */
+    .foto-griglia {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .foto-griglia.una { grid-template-columns: 1fr; }
+
+    .foto {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.45);
+      border: 2px solid #582612; /* Cornice dello stesso colore della scritta HOTEL ALTAVILLA */
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #582612;
+      padding: 8px;
+    }
+
+    .foto::before { content: "أدخل الصورة هنا"; }
+
+    .una .foto { aspect-ratio: 16 / 9; }
+
+    .foto img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Immagine cliccabile (es. Wi-Fi) */
+    .foto a {
+      position: absolute;
+      inset: 0;
+      display: block;
+      cursor: pointer;
+    }
+
+    .foto a:focus-visible { outline: 3px solid #582612; outline-offset: -3px; }
+
+    /* ===== TELEFONO ===== */
+    @media (max-width: 480px) {
+      :root { --barra: 64px; }
+      body { padding: calc(var(--barra) + 16px) 12px 28px; }
+      .barra { gap: 10px; padding: 0 12px; }
+      .marchio { gap: 10px; }
+      .barra img { height: 54px; width: 44px; }
+      .barra h1 { font-size: 1.45rem; }
+      .indietro { left: 6px; width: 34px; height: 34px; }
+      .indietro svg { width: 22px; height: 22px; }
+      .recensione { font-size: 1.05rem; padding: 10px 18px; gap: 10px; }
+      .riquadro { padding: 6px 14px; }
+      .voce-titolo { font-size: 1.35rem; padding: 16px 4px; gap: 12px; }
+      .contenuto { padding: 2px 4px 20px 4px; }
+      .tappe li { padding: 10px 12px 12px; }
+      .tappe strong { font-size: 1.1rem; }
+    }
+
+    /* ===== REGOLE RTL (Destra a Sinistra) PER ARABO ===== */
+    [dir="rtl"] .voce-titolo { text-align: right; }
+    [dir="rtl"] .contenuto { padding: 4px 50px 22px 8px; }
+    [dir="rtl"] .contenuto ul { margin: 0 20px 12px 0; }
+    [dir="rtl"] .indietro { left: auto; right: 16px; }
+    [dir="rtl"] .indietro svg { transform: scaleX(-1); } /* Specchia la freccia */
+    [dir="rtl"] .marchio { margin-right: 54px; gap: 16px; }
+    
+    @media (max-width: 480px) {
+      [dir="rtl"] .indietro { left: auto; right: 6px; }
+      [dir="rtl"] .marchio { margin-right: 44px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="barra">
+    <a class="indietro" href="index.html" aria-label="العودة إلى اختيار اللغة">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5M11 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+
+    <a class="marchio" href="index.html" aria-label="العودة إلى الصفحة الرئيسية">
+      <img src="Altavilla.png" alt="شعار فندق ألتافيلا روما">
+      <h1>Hotel Altavilla</h1>
+    </a>
+  </header>
+
+  <main>
+
+    <a class="recensione" href="https://www.tripadvisor.it/UserReviewEdit-g187791-d529194-Hotel_Altavilla_Rome-Rome_Lazio.html" target="_blank" rel="noopener">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="24" fill="#34E0A1"/>
+        <path d="M6 25 Q9 17.5 16 17 M42 25 Q39 17.5 32 17" fill="none" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <circle cx="16" cy="26" r="8.6" fill="#000"/>
+        <circle cx="16" cy="26" r="6.3" fill="#fff"/>
+        <circle cx="16" cy="26" r="3.3" fill="#000"/>
+        <circle cx="32" cy="26" r="8.6" fill="#000"/>
+        <circle cx="32" cy="26" r="6.3" fill="#fff"/>
+        <circle cx="32" cy="26" r="3.3" fill="#000"/>
+        <path d="M24 28.5 L21 32.5 L27 32.5 Z" fill="#000" stroke="#000" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      <span>رأيك يهمنا</span>
+    </a>
+
+    <div class="riquadro">
+
+      <!-- ===== WI-FI ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-wifi">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          واي فاي (Wi-Fi)
+        </button>
+        <div class="pannello" id="p-wifi">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>للاتصال بشبكة الواي فاي الخاصة بالفندق، اختر الشبكة وأدخل البيانات التالية:</p>
+              <div class="credenziali">
+                <strong>اسم المستخدم:</strong> Altavilla <small class="nota">(جميع شبكات الواي فاي لها نفس كلمة المرور)</small>
+                <strong>كلمة المرور:</strong> 91938163
+              </div>
+              <p>في حال وجود أي صعوبة في الاتصال، سيسعد موظفو الاستقبال بمساعدتك.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== INFORMAZIONI ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-informazioni">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          معلومات
+        </button>
+        <div class="pannello" id="p-informazioni">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>يفتح مكان الإقامة الخاص بنا على مدار 24 ساعة طوال أيام الأسبوع للترحيب بك في أي وقت من اليوم.</p>
+              <p>كل ثلاثة أيام نقوم بتغيير الملاءات وأكياس الوسائد والمناشف في جميع الغرف، ونقوم كل يوم بتوفير الصابون وورق التواليت لضمان إقامة مريحة لك دائمًا.</p>
+              <p>نذكرك أنه في كل مرة تغادر فيها الفندق، يجب عليك ترك مفاتيحك في مكتب الاستقبال.</p>
+              <div class="foto-griglia una">
+                <div class="foto"><img src="Reception.jpg" alt="معلومات" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== COLAZIONE ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-colazione">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          الإفطار
+        </button>
+        <div class="pannello" id="p-colazione">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>نقدم إفطارًا غنيًا يُقدم من الساعة 8:00 صباحًا حتى 10:00 صباحًا.</p>
+              <p>إذا لم يكن مشمولاً في سعر غرفتك، فالتكلفة هي 7.50 يورو للشخص الواحد. للدفع، يرجى التوجه إلى مكتب الاستقبال.</p>
+              <div class="foto-griglia una">
+                <div class="foto"><img src="Colazione.jpg" alt="الإفطار" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TOUR ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-tour">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          الجولات السياحية
+        </button>
+        <div class="pannello" id="p-tour">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>هل ترغب في اكتشاف المدينة؟ من مكتب الاستقبال لدينا، يمكننا حجز جميع التجارب التي ترغب في القيام بها. يقع الفندق في Via Principe Amedeo 9، على بعد حوالي 0.3 كم من محطة تيرميني (5 دقائق سيرًا على الأقدام). إليك أهم التجارب المتاحة مع MP Tour، مع الاتجاهات ومسافة المشي من الفندق:</p>
+              <ul class="tappe">
+                <li>
+                  <strong>الكولوسيوم والمنتدى الروماني وتل بالاتين</strong>
+                  <span class="dist">1.6 كم · 20 دقيقة سيرًا</span>
+                  اتجه إلى شارع Via Cavour واتبعه حتى شارع Via dei Fori Imperiali: من هناك يمكنك رؤية المنتدى الروماني والكولوسيوم بوضوح. تتوفر جولات إرشادية مع دليل صوتي أو دخول سريع.
+                </li>
+                <li>
+                  <strong>نافورة تريفي</strong>
+                  <span class="dist">1.4 كم · 17 دقيقة سيرًا</span>
+                  انزل عبر شارع Via Nazionale باتجاه ساحة فينيسيا (Piazza Venezia) واتبع اللافتات المؤدية إلى النافورة. تتوفر جولات مشي وجولات تحت الأرض.
+                </li>
+                <li>
+                  <strong>البانثيون</strong>
+                  <span class="dist">2 كم · 25 دقيقة سيرًا</span>
+                  مر بنافورة تريفي واستمر لمسافة 0.6 كم تقريبًا باتجاه شارع Via del Corso والبانثيون.
+                </li>
+                <li>
+                  <strong>ساحة نافونا تحت الأرض</strong>
+                  <span class="dist">2.3 كم · 28 دقيقة سيرًا</span>
+                  من البانثيون استمر لمسافة 0.3 كم تقريبًا إلى ساحة نافونا.
+                </li>
+                <li>
+                  <strong>قلعة سانت أنجلو</strong>
+                  <span class="dist">3.2 كم · 40 دقيقة سيرًا</span>
+                  من ساحة نافونا استمر باتجاه نهر التيبر وجسر سانت أنجلو. بدلاً من ذلك، يمكنك استخدام وسائل النقل العام من محطة تيرميني.
+                </li>
+                <li>
+                  <strong>الفاتيكان</strong> (متاحف الفاتيكان، كنيسة القديس بطرس والقبة، الحدائق)
+                  <span class="dist">4.5 كم · 55 دقيقة سيرًا</span>
+                  ننصحك بأخذ خط المترو A من محطة تيرميني (على بعد 0.3 كم تقريبًا من الفندق) باتجاه Battistini، والنزول في محطة Ottaviano: من هناك يستغرق الأمر حوالي 10 دقائق سيرًا على الأقدام.
+                </li>
+                <li>
+                  <strong>متاحف الكابيتولين</strong>
+                  <span class="dist">2 كم · 25 دقيقة سيرًا</span>
+                  انزل عبر شارع Via Nazionale حتى ساحة فينيسيا واصعد سلالم Cordonata باتجاه ساحة الكابيتول.
+                </li>
+                <li>
+                  <strong>معرض بورغيزي</strong>
+                  <span class="dist">2.5 كم · 30 دقيقة سيرًا</span>
+                  اتجه نحو شارع Via Veneto واصعد حتى بوابة Porta Pinciana، ثم ادخل إلى حدائق فيلا بورغيزي: يقع المعرض داخل الحديقة.
+                </li>
+                <li>
+                  <strong>حافلة سياحية، عربة جولف، جولات مشي وتذوق طعام</strong>
+                  <span class="dist">0.3 كم · 4 دقائق سيرًا</span>
+                  سيرشدك مكتب الاستقبال إلى نقطة التجمع لجميع التجارب التي اخترتها.
+                </li>
+              </ul>
+              <p>المسافات تقريبية ومحسوبة من الفندق. لمعرفة المواعيد والمدة والتوافر، ندعوك للتوجه إلى مكتب الاستقبال.</p>
+              <div class="foto-griglia una">
+                <div class="foto"><img src="Tour2.jpg" alt="الجولات السياحية" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CHECK-OUT ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-checkout">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          تسجيل المغادرة
+        </button>
+        <div class="pannello" id="p-checkout">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>يجب إتمام تسجيل المغادرة في موعد أقصاه الساعة 11:00 صباحًا.</p>
+              <p>ندعوك للحضور إلى مكتب الاستقبال لتسليم مفتاحك وتوديعنا. إذا كانت مغادرتك مقررة في وقت لاحق، يمكنك ترك أمتعتك في مخزننا (انظر قسم الأمتعة).</p>
+              <div class="foto-griglia una">
+                <div class="foto"><img src="Checkout.jpg" alt="تسجيل المغادرة" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== BAGAGLI ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-bagagli">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          الأمتعة
+        </button>
+        <div class="pannello" id="p-bagagli">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>نوفر لك مساحة حيث يمكنك الاحتفاظ بأمتعتك قبل تسجيل الوصول أو بعد تسجيل المغادرة. يتوفر خياران للتخزين:</p>
+              <ul>
+                <li><strong>مجاني</strong>، ولكنه غير مراقب.</li>
+                <li><strong>مدفوع</strong>، مراقب وآمن، بتكلفة 5 يورو للشخص الواحد.</li>
+              </ul>
+              <div class="foto-griglia una">
+                <div class="foto"><img src="Bagagli.jpg" alt="تخزين الأمتعة" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TAXI ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-taxi">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          سيارة أجرة (تاكسي)
+        </button>
+        <div class="pannello" id="p-taxi">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>عند الحاجة، يمكننا الاتصال بسيارة أجرة من أجلك لأي منطقة في روما ترغب في زيارتها، دون أي تكلفة إضافية.</p>
+              <p>كل ما عليك هو التوجه إلى موظفي الاستقبال.</p>
+              <div class="foto-griglia una">
+                <div class="foto"><img src="Taxi.jpg" alt="سيارة أجرة" onerror="this.remove()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CONTATTI ===== -->
+      <section class="voce">
+        <button class="voce-titolo" aria-expanded="false" aria-controls="p-contatti">
+          <svg class="freccia" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          جهات الاتصال
+        </button>
+        <div class="pannello" id="p-contatti">
+          <div class="pannello-interno">
+            <div class="contenuto">
+              <p>لأي معلومات أو طلب، نحن تحت تصرفك:</p>
+              <div class="credenziali">
+                <strong>الهاتف:</strong> <a href="tel:NUMERO">+39 06 47825 568</a><br>
+                <strong>البريد الإلكتروني:</strong> <a href="mailto:info@hotelaltavilla.it">info@hotelaltavilla.it</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.voce-titolo').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var aperto = btn.getAttribute('aria-expanded') === 'true';
+        
+        // Chiude tutte le altre sezioni aperte
+        document.querySelectorAll('.voce-titolo').forEach(function (altroBtn) {
+          if (altroBtn !== btn) {
+            altroBtn.setAttribute('aria-expanded', 'false');
+            document.getElementById(altroBtn.getAttribute('aria-controls')).classList.remove('aperto');
+          }
+        });
+
+        // Apre o chiude la sezione su cui abbiamo cliccato
+        btn.setAttribute('aria-expanded', String(!aperto));
+        document.getElementById(btn.getAttribute('aria-controls')).classList.toggle('aperto', !aperto);
+      });
+    });
+  </script>
+
+  <script>
+    (function () {
+      var m = getComputedStyle(document.documentElement).getPropertyValue('--sfondo').match(/url\(["']?(.*?)["']?\)/);
+      if (!m) return;
+      var img = new Image();
+      img.onload = function () {
+        try {
+          var n = 8, c = document.createElement('canvas');
+          c.width = c.height = n;
+          var x = c.getContext('2d');
+          x.drawImage(img, 0, img.height * 0.9, img.width, img.height * 0.1, 0, 0, n, n);
+          var d = x.getImageData(0, 0, n, n).data, r = 0, g = 0, b = 0, k = n * n;
+          for (var i = 0; i < d.length; i += 4) { r += d[i]; g += d[i + 1]; b += d[i + 2]; }
+          document.documentElement.style.setProperty('--colore-fondo',
+            'rgb(' + Math.round(r / k) + ',' + Math.round(g / k) + ',' + Math.round(b / k) + ')');
+        } catch (e) { }
+      };
+      img.src = m[1];
+    })();
+  </script>
+
+</body>
+</html>
