@@ -17,16 +17,32 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html, body { height: 100%; }
+    html { height: 100%; }
+
+    /* Altezza della barra superiore (usata anche per far partire lo sfondo sotto di essa) */
+    :root { --barra: 88px; }
+
+    /* Immagine di sfondo: parte SOTTO la barra e arriva fino al fondo dello schermo */
+    body::before {
+      content: "";
+      position: fixed;
+      top: var(--barra);
+      left: 0;
+      right: 0;
+      bottom: -200px; /* sporge sotto lo schermo: evita la striscia grigia sui telefoni quando la barra del browser si nasconde */
+      z-index: -1;
+      /* ▼▼▼ CAMBIA QUI il nome/percorso della tua immagine di sfondo ▼▼▼ */
+      background: url("Sfondo.png") center / cover no-repeat;
+    }
 
     body {
-      /* ▼▼▼ CAMBIA QUI il nome/percorso della tua immagine di sfondo ▼▼▼ */
-      background: #5b6770 url("Sfondo.png") center / cover no-repeat fixed;
+      background: #5b6770; /* colore visibile dietro la barra */
       font-family: Georgia, "Times New Roman", serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 120px 24px 24px;
+      min-height: 100vh;
+      padding: calc(var(--barra) + 32px) 24px 24px;
     }
 
     /* ===== BARRA SUPERIORE ===== */
@@ -40,7 +56,8 @@
       align-items: center;
       justify-content: center;
       gap: 16px;
-      padding: 5px 20px;
+      height: var(--barra);
+      padding: 0 20px;
       background: rgba(245, 235, 208, 0.75); /* crema, 0.75 = 25% di trasparenza */
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
@@ -63,7 +80,8 @@
     }
 
     @media (max-width: 480px) {
-      .barra { gap: 10px; padding: 5px 12px; }
+      :root { --barra: 64px; }
+      .barra { gap: 10px; padding: 0 12px; }
       .barra img { height: 54px; width: 44px; }
       .barra h1 { font-size: 1.7rem; }
     }
@@ -135,7 +153,7 @@
       <!-- ITALIANO -->
       <li>
         <!-- ▼ Inserisci qui il link alla versione italiana ▼ -->
-        <a href="Altaitaliano.html" hreflang="it" lang="it">
+        <a href="LINK-ITALIANO.html" hreflang="it" lang="it">
           <span class="bandiera" aria-hidden="true">
             <svg viewBox="0 0 60 40" preserveAspectRatio="none">
               <rect width="20" height="40" fill="#009246"/>
