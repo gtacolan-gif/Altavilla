@@ -84,6 +84,32 @@
       color: #582612; /* marrone del logo */
     }
 
+    /* Freccia "indietro" a sinistra nella barra */
+    .indietro {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: #582612;
+      background: rgba(255, 255, 255, 0.35);
+      transition: background 0.2s;
+    }
+
+    .indietro svg { width: 26px; height: 26px; display: block; }
+
+    .indietro:hover,
+    .indietro:focus-visible {
+      background: rgba(255, 255, 255, 0.8);
+      outline: 2px solid #582612;
+      outline-offset: 1px;
+    }
+
     .marchio {
       display: flex;
       align-items: center;
@@ -304,7 +330,9 @@
       .barra { gap: 10px; padding: 0 12px; }
       .marchio { gap: 10px; }
       .barra img { height: 54px; width: 44px; }
-      .barra h1 { font-size: 1.7rem; }
+      .barra h1 { font-size: 1.45rem; }
+      .indietro { left: 6px; width: 34px; height: 34px; }
+      .indietro svg { width: 22px; height: 22px; }
       .recensione { font-size: 1.05rem; padding: 10px 18px; gap: 10px; }
       .riquadro { padding: 6px 14px; }
       .voce-titolo { font-size: 1.35rem; padding: 16px 4px; gap: 12px; }
@@ -317,6 +345,11 @@
 <body>
 
   <header class="barra">
+    <!-- Freccia per tornare alla pagina index.html -->
+    <a class="indietro" href="index.html" aria-label="Torna alla scelta della lingua">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5M11 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+
     <!-- Logo e titolo cliccabili: riportano alla pagina index.html -->
     <a class="marchio" href="index.html" aria-label="Torna alla pagina iniziale">
       <img src="Altavilla.png" alt="Logo Hotel Altavilla Roma">
@@ -375,7 +408,7 @@
           <div class="pannello-interno">
             <div class="contenuto">
               <p>La nostra struttura è aperta 24 ore su 24, 7 giorni su 7, per accogliervi in qualsiasi momento della giornata.</p>
-              <p>Nelle camere all'occorrenza sostituiamo la biancheria e ogni giorno provvediamo al rifornimento di saponi e carta igienica, per garantirvi sempre un soggiorno confortevole.</p>
+              <p>Ogni tre giorni provvediamo al cambio di lenzuola, fodere e asciugamani in tutte le camere e ogni giorno provvediamo al rifornimento di saponi e carta igienica, per garantirvi sempre un soggiorno confortevole.</p>
               <p>Vi ricordiamo che, ogni volta che uscite dalla struttura, è obbligatorio lasciare le vostre chiavi in reception.</p>
 
               <!-- ▼ 1 immagine: sostituisci il nome del file ▼ -->
@@ -465,7 +498,7 @@
                   La fermata più vicina dell'Open Bus è Santa Maria Maggiore (Piazza Esquilino 12). Per le altre esperienze la reception vi indicherà il punto di ritrovo.
                 </li>
               </ul>
-              <p>Le distanze sono indicative e calcolate a partire dall'hotel. Per orari, durata e disponibilità vi invitiamo a rivolgervi alla reception. Il servizio è completamente gratuito: non richiediamo alcun pagamento per la prenotazione, solo per il costo del tour selezionato.</p>
+              <p>Le distanze sono indicative e calcolate a partire dall'hotel. Per orari, durata e disponibilità vi invitiamo a rivolgervi alla reception. Il servizio è completamente gratuito: non richiediamo alcun pagamento per la prenotazione.</p>
 
               <!-- ▼ 1 immagine: sostituisci il nome del file ▼ -->
               <div class="foto-griglia una">
